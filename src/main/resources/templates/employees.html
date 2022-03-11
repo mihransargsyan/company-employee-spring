@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="UTF-8" >
+  <title>Employees</title>
+</head>
+<body>
+
+<div style="width: 1000px; margin: 0 auto; padding: 10px; text-align: center">
+
+  <a href="/addEmployee" th:text="#{employees.add.employee}"></a> | <a href="/" th:text="#{employees.back}"></a><br>
+
+  <table border="1"style="margin-bottom: auto">
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>surname</th>
+      <th>email</th>
+      <th>phone number</th>
+      <th>salary</th>
+      <th>position</th>
+      <th>company</th>
+      <th>picture</th>
+      <th>delete</th>
+    </tr>
+
+    <tr th:each="employees: ${employees}">
+      <td th:text="${employees.getId()}"></td>
+      <td th:text="${employees.getName()}"></td>
+      <td th:text="${employees.getSurname()}"></td>
+      <td th:text="${employees.getEmail()}"></td>
+      <td th:text="${employees.getPhoneNumber()}"></td>
+      <td th:text="${employees.getSalary()}"></td>
+      <td th:text="${employees.getPosition()}"></td>
+      <td th:text="${employees.getCompany().getName()}"></td>
+      <td>
+        <img th:if="${employees.employeeImageList != null && !employees.employeeImageList.isEmpty()}" th:src="@{/getImage(picName=${employees.employeeImageList.get(0).name})}" width="100" height="100"/>
+        <img th:if="${employees.employeeImageList == null || employees.employeeImageList.isEmpty()}" src="/poto.jpg" width="100" height="100"/>
+      </td>
+      <td><a th:href="@{'/deleteEmployee/' + ${employees.getId()}}">delete</a></td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>
